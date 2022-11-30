@@ -15,7 +15,7 @@ void main()
 	//	 если введено число 1563, результат работы программы : 5136.
 
 
-	int number, n1, n2, n3, n4, change;
+	int number, n1, n2, n3, n4, result;
 
 	cout << "\nВведите целое четырехзначное число: ";
 	cin >> number;
@@ -28,15 +28,10 @@ void main()
 		n3 = number % 100 / 10;
 		n4 = number % 10; 
 		
-		change = n1;
-		n1 = n2;
-		n2 = change;
+		result = n2 * 1000 + n1 * 100 + n4 * 10 + n3;
 
-		change = n3;
-		n3 = n4;
-		n4 = change;
+		cout << result;
 
-		cout << n1 << n2 << n3 << n4;
 	}
 	else
 		cout << "Значение не верное!";
