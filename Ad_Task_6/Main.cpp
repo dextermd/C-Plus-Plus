@@ -14,7 +14,7 @@ void main()
 	//		Вывести на экран текущее время в часах, минутах и секундах.Посчитать, сколько часов, минут и
 	//		секунд осталось до полуночи.
 
-	int pastSecTime, mins, lastSec, hours;
+	int pastSecTime, mins, sec, hours, lastHours,lastMins,lastSec;
 
 	cout << "\nВведите прошедшее время в секундах с начала дня: ";
 	cin >> pastSecTime;
@@ -23,15 +23,15 @@ void main()
 	{
 		hours = pastSecTime / 3600;
 		mins = (pastSecTime / 60) % 60;
-		lastSec = pastSecTime % 60;
+		sec = pastSecTime % 60;
 
-		cout << "Прошедшее время с начала дня в формате (HH:MM:SS) " << hours << ":" << mins << ":" << lastSec;
+		cout << "Прошедшее время с начала дня в формате (HH:MM:SS) " << hours << ":" << mins << ":" << sec;
 
-		hours -= 24;
-		mins -= 60;
-		lastSec -= 60;
+		lastHours = 23 - hours;
+		lastMins = 59 - mins;
+		lastSec = 60 - sec;
 
-		cout << "\nОсталось до полуночи в формате (HH:MM:SS) " << abs(hours) << ":" << abs(mins) << ":" << abs(lastSec);
+		cout << "\nОсталось до полуночи в формате (HH:MM:SS) " << lastHours << ":" << lastMins << ":" << lastSec;
 	}
 	else
 		cout << "Значение не верное!";
