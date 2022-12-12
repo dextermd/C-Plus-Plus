@@ -217,7 +217,7 @@ void main()
         среднее отрицательных чисел.
     */
 
-    int k = 0, n, count_pos = 0, summa_pos= 0;
+    int k = 0, n, count_pos = 0, summa_pos = 0, summa_d = 0, count_d = 0, count_null = 0;
     cout << "\nВведи 5 целых чисел: \n";
 
     while (k < 5)
@@ -230,12 +230,38 @@ void main()
             summa_pos += n;
             count_pos++; // кол-во положительных
         }
+        else if (n < 0)
+        {
+            summa_d += n;
+            count_d++;
+        }
+        else {
+            count_null++;
+        }
 
         k++;
     }
+
+    cout << fixed << setprecision(2);
+
+    if (count_pos)
+    {
+        cout << "\nКоличество положительных:  " << count_pos;
+        cout << "\nСумма положительных:  " << summa_pos;
+        cout << "\nСреднее положительных:  " << (double)summa_pos / count_pos;
+    }
+    else cout << "\n\nПоложительных значений нет";
     
-    cout << "\nКоличество положительных:  " << count_pos;
-    cout << "\nСумма положительных:  " << summa_pos;
+    if (summa_d)
+    {
+        cout << "\nКоличество отрицательных:  " << count_d;
+        cout << "\nСумма отрицательны:  " << summa_d;
+        cout << "\nСреднее отрицательных:  " << (double)summa_d / count_d;
+    }
+    else cout << "\nОтрицательных значений нет";
+
+    cout << "\n\nКоличество нулевых:  " << count_null;
+
 
     _getch();
 }
