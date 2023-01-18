@@ -32,11 +32,11 @@ void main()
     cout << "\nДанные массива: \n";
 
     for (int i = 0; i < N; i++)
-    {   
+    {
         arr[i] % 2 == 0 ? even = true : even = false;
         i % 2 == 0 ? index_even = true : index_even = false;
 
-        even && index_even ? count_even_and_even_index++ : count_even_and_even_index;
+        even&& index_even ? count_even_and_even_index++ : count_even_and_even_index;
         even ? count_even++, summa_even += arr[i] : count_odd++, summa_odd += arr[i];
         index_even ? summa_even_index += arr[i] : summa_odd_index += arr[i];
 
@@ -58,13 +58,11 @@ void main()
     cout << endl << endl;
 
     cout << "\nСумма элементов с четными индексами массива: " << summa_even_index;
-    cout << "\nСумма элементов с нечетными индексами массива: " << summa_odd_index;    
-    
+    cout << "\nСумма элементов с нечетными индексами массива: " << summa_odd_index;
+
     cout << endl << endl;
 
     cout << "\nКоличество четных элементов с четными индексами массива: " << count_even_and_even_index;
-
-
 
     _getch();
 }

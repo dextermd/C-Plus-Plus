@@ -4,11 +4,13 @@
 #include <iomanip>
 #include <Windows.h>
 
+
 using namespace std;
 
 void main()
 {
-    // setlocale(LC_ALL, "rus");
+
+    //setlocale(LC_ALL, "rus");
 
     //Задание 4. Написать программу «Успеваемость».Пользователь вводит 10 оценок студента,
     //    значения сохраняются в массиве.Осуществлять проверку на корректный ввод оценки
@@ -24,75 +26,118 @@ void main()
     //− Выход из меню.
 
     const int NUM = 10;
-    int arr[NUM], num = 10;
-    bool menu;
-    //cout << "\nВведите " << NUM << " оценок студента: \n";
+    int arr[NUM], num, max, min;
+    float bal = 0.;
 
-    //for (int i = 0; i < NUM;)
-    //{   
-    //    cout << "\nВведите оценку номер " << i + 1 << ": ";
-    //    cin >> arr[i];
+    cout << "\nВведите " << NUM << " оценок студента: \n";
 
-    //    if (arr[i] <= 10 && arr[i] > 0)
-    //    {
-    //        i++;
-    //        system("CLS");
-    //    }
-    //    else {
-    //        cout << "\nОценка должна быть от 1 до 10: ";
-    //    }
-    //}
+    for (int i = 0; i < NUM;)
+    {   
+        cout << "\nВведите оценку номер " << i + 1 << ": ";
+        cin >> arr[i];
+
+        if (arr[i] <= 10 && arr[i] > 0)
+        {
+            i++;
+            system("CLS");
+        }
+        else {
+            system("CLS");
+            cout << "\nОценка должна быть от 1 до 10: ";
+        }
+    }
 
     do
     {
-        //system("CLS");
-        cout << "\n\t\t\t\t\tМеню";
-        cout << "\n\t\t\t\t1.[Вывести оценки]";
-        cout << "\n\t\t\t\t2.[Пересдача экзамена]";
-        cout << "\n\t\t\t\t3.[Максимальная оценка]";
-        cout << "\n\t\t\t\t4.[Минимальная оценка]";
-        cout << "\n\t\t\t\t5.[Средний балл]";
-        cout << "\n\t\t\t\t6.[Выходит ли стипендия]";
-        cout << "\n\t\t\t\t0.[Выход из меню]";
-        cout << "\n\n\t\t\t****************************************";
+        cout << "\n\tМеню";
+        cout << "\n1.[Вывести оценки]";
+        cout << "\n2.[Пересдача экзамена]";
+        cout << "\n3.[Максимальная оценка]";
+        cout << "\n4.[Минимальная оценка]";
+        cout << "\n5.[Средний балл]";
+        cout << "\n6.[Выходит ли стипендия]";
+        cout << "\n0.[Выход из меню]";
+        cout << "\n\n------------------------";
 
-        cout << "\nВведите пункт меню: ";
+        cout << "\n\nВведите пункт меню от 0 до 6: ";
         cin >> num;
-        
-        num >= 0 && num <= 6 ? menu = true : menu = false;
 
         switch (num)
         {
-        case 1:
-            system("CLS");
-            for (int i = 0; i < NUM; i++)
-            {
-                cout << arr[i] << " ";
-            }
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        default:
-            break;
+            case 1:
+                system("CLS");
+                cout << "\n\n\nОценки студента: ";
+                for (int i = 0; i < NUM; i++)
+                {
+                    cout << arr[i] << " ";
+                }
+                cout << "\n\n\n";
+                break;
+            case 2:
+                int grade_index, new_grade;
+                system("CLS");
+                cout << "\n\tПересдача экзамена";
+                cout << "\nВведите порядковый номер оценки от 1 до 10: ";
+                cin >> grade_index;
+                if (grade_index >=1 && grade_index <= 10)
+                {
+                    cout << "\nВведите новую оценку от 1 до 10: ";
+                    cin >> new_grade;
+                    if (new_grade >=1 && new_grade <= 10)
+                    {
+                        arr[grade_index - 1] = new_grade;
+                    }
+                    else {
+                        cout << "\nНеверная оценка!";
+                    }
+                }
+                else {
+                    cout << "\nНеверный порядковый номер оценки!";
+                }
+                cout << "\n\n\n";
+                break;
+            case 3:
+                system("CLS");
+                cout << "\n\tМаксимальная оценка студента: ";
+                max = arr[0];
+                for (int i = 1; i < NUM; i++)
+                {
+                    arr[i] > max ? max = arr[i] : max;
+                }
+                cout << max;
+                cout << "\n\n\n";
+                break;
+            case 4:
+                system("CLS");
+                cout << "\n\tМинимальная оценка студента: ";
+                min = arr[0];
+                for (int i = 1; i < NUM; i++)
+                {
+                    arr[i] < min ? min = arr[i] : min;
+                }
+                cout << min;
+                cout << "\n\n\n";
+                break;
+            case 5:
+                system("CLS");
+                cout << "\n\tСредний балл студента: ";
+                for (int i = 0; i < NUM; i++)
+                {
+                    bal += arr[i];
+                }
+                bal /= NUM;
+                cout << bal;
+                cout << "\n\n\n";
+                break;
+            case 6:
+                system("CLS");
+                bal >= 8.5 ? (cout << "\n\tCтипендия есть!") : (cout << "\n\tCтипендии нету :(");
+                cout << "\n\n\n";
+                break;
+            default:
+                break;
         }
-
     } while (num);
-
-
-    cout << endl << endl;
-
-    //for (int i = 0; i < NUM; i++)
-    //{
-    //    cout << arr[i] << " ";
-    //}
 
 
     _getch();
