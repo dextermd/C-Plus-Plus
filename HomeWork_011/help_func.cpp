@@ -86,3 +86,19 @@ int get_summa(int num)
 
 	return summa;
 }
+
+int get_summa(int arr[], int size)
+{
+	int summa = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		summa += arr[i];
+	}
+	return summa;
+}
+
+int get_random(int size)
+{
+	return rand() % (((size - 1) - 0 + 1) + 0);
+}
