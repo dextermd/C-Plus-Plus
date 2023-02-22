@@ -27,10 +27,10 @@ template<class Type>
 void sort_array(Type arr[][COL], int row);
 
 template<class Type>
-void random_mixing(Type arr[], Type t_arr[], int size);
+void random_mixing(Type arr[], int t_arr[], int size);
 
 template<class Type>
-bool is_unique(Type arr[], int size, int key);
+bool is_unique(int arr[], int size, int key);
 
 
 template<class Type>
@@ -150,7 +150,7 @@ inline void sort_array(Type arr[][COL], int row)
 }
 
 template<class Type>
-inline bool is_unique(Type arr[], int size, int key)
+inline bool is_unique(int arr[], int size, Type key)
 {
 	int count = 0;
 
@@ -165,7 +165,7 @@ inline bool is_unique(Type arr[], int size, int key)
 
 
 template<class Type>
-inline void random_mixing(Type arr[], Type t_arr[], int size)
+inline void random_mixing(Type arr[], int t_arr[], int size)
 {
 
 	for (int i = 0; i < size; i++)
@@ -179,7 +179,7 @@ inline void random_mixing(Type arr[], Type t_arr[], int size)
 	for (int i = 0; i < size; i++)
 	{
 		int r_index = t_arr[i];
-		int temp;
+		Type temp;
 
 		temp = arr[i];
 		arr[i] = arr[r_index];
