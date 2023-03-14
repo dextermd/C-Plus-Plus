@@ -182,25 +182,58 @@ void add_by_index(int*& m, int& size, int index, int value)
 
 }
 
+//---------------------------------------------
+//---------------------------------------------
 int** memory(int row, int col)
 {
-    int** arr = new int*[row];
+    // Выделение памяти под одномерный массив адресов(=указателей) строк матрицы
+    int** mas = new int* [row];
+    // Выделение памяти под каждую строку матрицы(=под одномерный массив)
     for (int i = 0; i < row; i++)
     {
-        arr[i] = new int[col];
+        mas[i] = new int[col];
     }
-    return arr;
+    return mas;
 }
-
-void init(int** m, int row, int col, int, int b)
+//---------------------------------------------
+void init(int** mas, int row, int col, int a, int b)
 {
+    if (a > b)
+    {
+        int t = a;
+        a = b;
+        b = t;
+    }
+    //Инициализация значений матрицы на экран
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            mas[i][j] = rand() % (b - a + 1) + a;
+        }
+    }
 }
-
-void showDynamArr(int** m, int row, int col)
+//---------------------------------------------
+void show(int** mas, int row, int col)
 {
+    //вывод на экран
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            cout << setw(6) << mas[i][j];
+        }
+        cout << endl;
+    }
 }
-
-void destroy(int**& m, int row)
+//---------------------------------------------
+void destroy(int**& mas, int row)
 {
-
+    //Освобождение памяти:
+        // Освобождаем память, выделенную под строки матрицы
+    for (int i = 0; i < row; i++) {
+        delete[]mas[i];
+    }
+    // Освобождаем память, выделенную под адреса строк
+    delete[]mas;
 }
