@@ -25,13 +25,15 @@ void show(int** m, int row, int col);
 void destroy(int**& m, int row);
 
 
-// ---------------------------------------- work funk ----------------------------------------------------- \\
+// ---------------------------------------- work func ----------------------------------------------------- \\
 // -------------------------------------------------------------------------------------------------------- \\
 
 void delete_value(int*& arr, int& size, bool negative = true );
 void delete_row(int**& arr, int &row, int col, int id_row);
 bool is_glas(char s);
 void green_red_blue_text(const char* s);
+void digit_all(const char* s, int& number, int& alpha, int& space, int& glas, int& other);
+int get_digit_from_str(const char* s);
 
 int main()
 {
@@ -199,7 +201,7 @@ int main()
 #endif
 
 
-#if 1
+#if 0
 // ---------------------------------------------------------------------------------------------------------------- //
 // ************************************************** Задание 5 *************************************************** //
     //    Задание 5: Пользователь вводит с клавиатуры строку.Необходимо написать функцию, которая
@@ -220,6 +222,17 @@ int main()
     //    количество букв, цифр, пробелов, гласных, знаков и остальных символов, присутствующих в
     //    строке.
 
+    int number, alpha, space, glas, other;
+    char str[] = "Hello World! %%%% (28.03.23) %%%% !@#";
+    digit_all(str, number, alpha, space, glas, other);
+    cout << "\nВсего символов: " << strlen(str);
+    cout << "\nКоличество цифр: " << number;
+    cout << "\nКоличество букв: " << alpha;
+    cout << "\nКоличество пробелов: " << space;
+    cout << "\nКоличество гласных: " << glas;
+    cout << "\nКоличество знаков и остальных символов: " << other;
+
+
 #endif
 
 
@@ -231,6 +244,35 @@ int main()
     //   filename.TXT test.TXT myfile.TXT simplefile
     //   Количество вхождений подстроки.TXT в строку : 3
 
+    char str[] = "filename.txt test.txt myfile.txt simplefile", sub_str[] = ".txt";
+    int br = strlen(sub_str);
+    int cr = strlen(str);
+
+    char* p = strstr(str, sub_str);
+    int repeat = 0;
+
+    if (p)
+    {
+        while (p)
+        {
+            repeat++;
+            for (int i = 0; i < br; i++)
+            {
+                p[i] = toupper(p[i]);
+            }
+
+            p += br;
+            p = strstr(p, sub_str);
+        }
+        
+        SetColor(3);
+        cout << str << endl;
+
+        cout << "\nКоличество вхождений подстроки " << sub_str << " в строку :" << repeat;
+    }
+    else {
+        cout << "\nПодстроки в троке нет";
+    }
 
 #endif
 
@@ -243,6 +285,27 @@ int main()
      //   Строка: 235A65TR789
      //   Массив цифр : 2 3 5 6 5 7 8 9
 
+    char str[] = "235A65TR789";
+    int length = strlen(str);
+    int size = 0;
+    int b = 0;
+    for (int i = 0; i < length; i++)
+    {
+        isdigit(str[i]) ? size++ : size;
+    }
+
+    int* arr = new int[size];
+
+    for (int i = 0; i < length;i++)
+    {
+        isdigit(str[i]) ? arr[b++] = (int)str[i] - 48 : str[i];
+    }
+
+    cout << "\n Массив цифр : ";
+    show(arr, size);
+
+    delete[]arr;
+    arr = nullptr;
 
 #endif
 
@@ -255,22 +318,67 @@ int main()
     //   Строка: 12A65H21E1
     //   Число : 1265211
 
+    char str[] = "12A65H21E1";
+
+    cout << get_digit_from_str(str);
+
 #endif
 
 
     _getch();
 }
 
-// ---------------------------------------- work funk ----------------------------------------------------- \\
+// ---------------------------------------- work func ----------------------------------------------------- \\
 // -------------------------------------------------------------------------------------------------------- \\
+
+int get_digit_from_str(const char* s)
+{
+    int b = -1;
+    char str_c[100];
+
+    for (int i = 0; i < strlen(s); i++)
+    {
+        isdigit(s[i]) ? str_c[++b] = s[i] : s[i];
+    }
+
+    return b < 0 ? 0 : atoi(str_c);
+}
+
+void digit_all(const char* s, int& number, int& alpha, int& space, int& glas, int& other)
+{
+    number = 0, alpha = 0, space = 0, glas = 0, other = 0;
+    for (int i = 0; i < strlen(s); i++)
+    {
+        isdigit(s[i]) ? number++ : number;
+        isalpha(s[i]) ? alpha++ : alpha;
+        isspace(s[i]) ? space++ : space;
+        is_glas(s[i]) ? glas++ : glas;
+        ispunct(s[i]) ? other++ : other;
+
+    }
+}
 
 void green_red_blue_text(const char* s)
 {
     for (int i = 0; i < strlen(s); i++)
     {
-        cout << s[i];
+        if (isdigit(s[i]) || s[i] == ' ')
+        {
+            SetColor(1);
+            cout << s[i];
+        }
+        else if (isalpha(s[i]) || s[i] == ' ')
+        {
+            SetColor(2);
+            cout << s[i];
+        }
+        else if (isgraph(s[i]) || s[i] == ' ') {
+            SetColor(12);
+            cout << s[i];
+        }
     }
 }
+
 bool is_glas(char s) // aoueiyAOUEIY
 {
     char gl[] = "aoueiyAOUEIY";
