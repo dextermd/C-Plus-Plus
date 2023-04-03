@@ -340,51 +340,46 @@ int main()
         */
 
     char str[200] = "Карандаш красный,Ручка шариковая,Линейка деревянная,Линейка пластиковая,Маркер,Бумага белая";
-    char str_copy[200];
+    char copy[200];
+    strcpy_s(copy, str);
 
-    strcpy_s(str_copy, str);
-
-    char* t1, * t2;
+    char* t1, * t2;// объявление двух указателей
     t1 = strtok_s(str, ",.;", &t2);
     int k = 0;
-
     while (t1)
     {
-        cout << t1 << endl;
+        //cout  << t1 << endl;
         t1 = strtok_s(nullptr, ",.;", &t2);
         k++;
     }
-
-
     cout << "\nКоличество лексем: " << k << endl << endl;
-    strcpy_s(str, str_copy);
+    strcpy_s(str, copy); // восстановление строки из копии
 
-    char** arr = new char*[k];
-
-    if (arr)
+    char** mas = new char* [k];
+    if (mas)
     {
         t1 = strtok_s(str, ",.;", &t2);
-
-        for (int i = 0; i < k; i++)
+        for (int i = 0; i < k; i++)//пройтись лексемам
         {
-            arr[i] = new char[strlen(t1) + 1];
-            strcpy_s(arr[i], strlen(t1) + 1 , t1);
+            mas[i] = new char[strlen(t1) + 1];//выделить память под каждую строку массива строк
+            strcpy_s(mas[i], strlen(t1) + 1, t1);//  и записать в массив  текущую лексему
 
             t1 = strtok_s(nullptr, ",.;", &t2);
         }
 
+        // Вывод массива строк на экран
         for (int i = 0; i < k; i++)
         {
-            cout << arr[i] << endl;
+            cout << mas[i] << endl;
         }
+        //...
 
         for (int i = 0; i < k; i++)
         {
-            delete[] arr[i];
+            delete[]mas[i];
         }
-
-        delete[] arr;
-        arr = nullptr;
+        delete[]mas;
+        mas = nullptr;
     }
 
 
