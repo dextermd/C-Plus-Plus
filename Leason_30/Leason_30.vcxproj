@@ -127,10 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="30_2 �ਬ�� ����.cpp" />
+    <ClCompile Include="30_3 add ������ �����ப� � ��ப�.cpp" />
+    <ClCompile Include="30_4 add �������� �����ப� � ��ப�.cpp" />
+    <ClCompile Include="30_5 add ��ꥤ������ ���ᨢ��.cpp" />
     <ClCompile Include="array_functions.cpp" />
-    <ClCompile Include="C:\Users\dexte\Desktop\30_3 add ������ �����ப� � ��ப�.cpp" />
-    <ClCompile Include="C:\Users\dexte\Desktop\30_4 add �������� �����ப� � ��ப�.cpp" />
-    <ClCompile Include="C:\Users\dexte\Desktop\30_5 add ��ꥤ������ ���ᨢ��.cpp" />
     <ClCompile Include="dynamic_arr.cpp" />
     <ClCompile Include="help_functions.cpp" />
     <ClCompile Include="Source.cpp" />
