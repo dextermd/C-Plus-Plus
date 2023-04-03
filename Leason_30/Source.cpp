@@ -391,16 +391,6 @@ int main()
 #endif
 
 
-#if 0
-
-#endif
-
-
-
-
-
-
-
     _getch();
 }
 
