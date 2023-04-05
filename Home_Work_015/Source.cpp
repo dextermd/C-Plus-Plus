@@ -27,6 +27,38 @@ int main()
     //  Вашингтон(9)
     //  Строка максимальной длины : Вашингтон(9), порядковый номер : 5
 
+    const int ROW = 5, COL = 30;
+
+    char str[ROW][COL] = { 
+                            "Kishinev",
+                            "Bucharest",
+                            "Kyiv",
+                            "Rome",
+                            "Washington"
+    };
+
+    for (int i = 0; i < ROW; i++)
+    {
+        int g = 0;
+        int max = 0;
+
+        for (int j = 0; str[i][j]; j++)
+        {
+            if (str[i][j])
+            {
+                g++;
+            }
+            max = g;
+            max < g ? max = g : max;
+            cout << str[i][j];
+        }
+        cout << "("<< g << ")" << endl;
+    }
+
+    for (int i = 0; i < ROW; i++)
+    {
+        cout << str[i] << " ";
+    }
 
 #endif
 
