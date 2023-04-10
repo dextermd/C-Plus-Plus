@@ -6,6 +6,7 @@
 #include <string.h>
 #include <algorithm> // STL
 
+
 using namespace std;
 
 // Data  - Имя типа данных
@@ -19,7 +20,7 @@ void show(const Data& d, bool p = false);
 
 char* month_name(int n);
 
-
+// Бинарные предикатные функции
 double add(int a, int b) { return a + b; }
 double subtr(int a, int b) { return a - b; }
 double mult(int a, int b) { return a * b; }
@@ -43,6 +44,29 @@ bool cmp_desc(double a, double b) { return a < b; }
 bool cmp_str_incr(const char* a, const char* b) { return strcmp(a, b) > 0; }
 
 void sort(int* arr, int size, bool (*pf)(int, int) = cmp_incr);
+
+// Унарные предикатные функции
+bool is_even(int a) {
+    return a % 2 == 0;
+}
+
+bool is_odd(int a) {
+    return a % 2;
+}
+
+bool is_positiv(int a) {
+    return a > 0;
+}
+
+bool is_negativ(int a) {
+    return a < 0;
+}
+
+bool is_zero(int a) {
+    return a == 0;
+}
+
+int count_value(int* arr, int size, bool(*pf)(int));
 
 template<class Type>
 void sort(Type* arr, int size, bool (*pf)(Type, Type))
@@ -72,7 +96,46 @@ int main()
     // --------------------------------------------------------------------------------------------------------------- \\
     // -------------------------------------- Указатели на функции --------------------------------------------------- \\
 
+#if 1  
+
+    const int M = 10;
+    //double arr[M]{ 25, -6, 9, 78, -69, 45, 360, -123, 69, 456 };
+    int arr[M]{ 2560, -6, 9, 78, -125, 0, 360, -123, 69, 45 };
+
+    cout << "\nМассив :\n";
+    for (int v : arr)
+    {
+        cout << v << " ";
+    }
+
+    // алгоритм count_value наша функция
+    cout << "\n\n\n\nНиже используем нашу функцию -> count_value" << endl;
+
+    cout << "\n\nКоличество четных знгачений:   " << count_value(arr, M, is_even);
+    cout << "\n\nКоличество не четных знгачений:   " << count_value(arr, M, is_odd);
+    cout << "\n\nКоличество позитивных знгачений:   " << count_value(arr, M, is_positiv);
+    cout << "\n\nКоличество негативных знгачений:   " << count_value(arr, M, is_negativ);
+    cout << "\n\nКоличество нулевых знгачений:   " << count_value(arr, M, is_zero);
+
+    // алгоритм count_if библиотека STL
+
+    cout << "\n\n\n\nНиже уже используем алгоритм -> count_if библиотека STL" << endl;
+
+    cout << "\n\nКоличество четных знгачений:   " << count_if(arr, &arr[M], is_even);
+    cout << "\n\nКоличество не четных знгачений:   " << count_if(arr, &arr[M], is_odd);
+    cout << "\n\nКоличество позитивных знгачений:   " << count_if(arr, &arr[M], is_positiv);
+    cout << "\n\nКоличество негативных знгачений:   " << count_if(arr, &arr[M], is_negativ);
+    cout << "\n\nКоличество нулевых знгачений:   " << count_if(arr, &arr[M], is_zero);
+
+
+#endif
+
+
+
+
+
 #if 0
+
     // --------------------------------------------------------------------------------------------------------------- \\
 
     cout << "\nАдрес функции : " << setprecision(2) << fixed << add << endl;
@@ -239,7 +302,10 @@ int main()
 #endif
 
 
-#if 1
+
+
+#if 0
+
     // ------------------------------------- Структуры ----------------------------------------------------- \\
     // ----------------------------------------------------------------------------------------------------- \\
     // Описать сруктуры для хранения даты (день,месяц,год)
@@ -284,6 +350,20 @@ int main()
 
 
     _getch();
+}
+
+
+int count_value(int* arr, int size, bool(*pf)(int))
+{
+    int count = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if ((*pf)(arr[i]))
+        {
+            count++;
+        }
+    }
+    return count;
 }
 
 
