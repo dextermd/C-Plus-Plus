@@ -132,8 +132,13 @@ int main()
                 • по приоритетy.
                 • по дате и времени исполнения.
     */
-    int index = 0, size = 1, menu = 1, delete_id = -1, update_id;
-    Todo* todo = new Todo[size]{NULL};
+    int index = 0, size = 1, menu = 1, delete_id = -1, update_id = -1;
+    int search_menu = 1, where_find = -1, view_menu = -1;
+    bool pr;
+    char search_key[30];
+
+    Todo* todo = new Todo[size]{};
+
  
     do
     {
@@ -141,12 +146,11 @@ int main()
         cout << "1. Создать дело\n";
         cout << "2. Удаление дел\n";
         cout << "3. Редактирование дел\n";
-        cout << "4. Поиск дел\n";
+        cout << "4. Поиск\n";
         cout << "5. Отображение списка дел\n";
+        cout << "6. Выход\n";
 
-
-
-        cout << "\n\nВведите номер меню от 1 до 2: ";
+        cout << "\n\nВведите номер меню от 1 до 6: ";
         cin >> menu;
 
         switch (menu)
@@ -173,43 +177,50 @@ int main()
             break;        
         case 2:
             system("cls");
-            show(todo, size);
-            cout << "\nВыберите ID для удаления: ";
-            cin >> delete_id;
-
-            if (delete_id -1 >= 0 && delete_id - 1 <= size -1)
+            if (strcmp(todo[0].title, "") == 0)
             {
-                size -= 1;
-                Todo* delete_todo = new Todo[size];
-                for (int i = 0; i < delete_id - 1  ; i++)
-                {
-                    delete_todo[i] = todo[i];
-                }
-
-                for (int i = delete_id; i <= size; i++)
-                {
-                    delete_todo[i-1] = todo[i];
-                }
-
-                for (int i = 0; i < size; i++)
-                {
-                    todo[i] = delete_todo[i];
-                }
-
-                delete[] delete_todo;
-                index--;
-                system("cls");
-                cout << "\n\t\t\t\t\tВы удалили успешно запись под ID - " << delete_id;
+                cout << "\n\t\t\t\t\tПусто!";
             }
             else {
-                system("cls");
-                cout << "\n\t\t\t\t\tОшибка такого ID нету в списке!";
+                show(todo, size);
+                cout << "\nВыберите ID для удаления: ";
+                cin >> delete_id;
+
+                if (delete_id - 1 >= 0 && delete_id - 1 <= size - 1)
+                {
+                    size -= 1;
+                    Todo* delete_todo = new Todo[size];
+                    for (int i = 0; i < delete_id - 1; i++)
+                    {
+                        delete_todo[i] = todo[i];
+                    }
+
+                    for (int i = delete_id; i <= size; i++)
+                    {
+                        delete_todo[i - 1] = todo[i];
+                    }
+
+                    for (int i = 0; i < size; i++)
+                    {
+                        todo[i] = delete_todo[i];
+                    }
+
+                    delete[] delete_todo;
+                    index--;
+                    system("cls");
+                    cout << "\n\t\t\t\t\tВы успешно удалили  запись под ID - " << delete_id;
+                }
+                else {
+                    system("cls");
+                    cout << "\n\t\t\t\t\tОшибка такого ID нету в списке!";
+                }
             }
+            
 
             break;
         case 3:
             system("cls");
-            if (todo)
+            if (strcmp(todo[0].title, "") == 0)
             {
                 cout << "\n\t\t\t\t\tПусто!";
             }
@@ -217,17 +228,133 @@ int main()
                 show(todo, size);
                 cout << "\nВыберите ID для редактирования: ";
                 cin >> update_id;
+                if (update_id - 1 >= 0 && update_id - 1 <= size - 1)
+                {
+                    init(todo[update_id - 1]);
+                    cout << "\n\t\t\t\t\tВы успешно отредактировали запись под ID - " << update_id;
+                }
+                else {
+                    system("cls");
+                    cout << "\n\t\t\t\t\tОшибка такого ID нету в списке!";
+                }
             }
-
             break;
         case 4:
             system("cls");
             show(todo, size);
+            do
+            {
+                cout << "\nПоиск по: \n\n";
+                cout << "1.Названию\n";
+                cout << "2.Приоритету\n";
+                cout << "3.Описанию.\n";
+                cout << "4.Дате и времени исполнения.\n";
+                cout << "5.Выход.\n";
+                cout << "\nВведите пункт от 1 до 5: ";
+                cin >> search_menu;
+
+                switch (search_menu)
+                {
+                case 1:
+                    system("cls");
+                    where_find = 1;
+
+                    cin.ignore(256, '\n');
+                    cout << "\nВведите название: ";
+                    cin.getline(search_key, sizeof(search_key));
+                    pr = search(todo, size, search_key, where_find);
+                    if (!pr)
+                    {
+                        cout << "\nДел с таким названием не найдено\n";
+                    }
+                    pr = false;
+                    break;
+                case 2:
+                    system("cls");
+                    where_find = 2;
+                    cin.ignore(256, '\n');
+                    cout << "\nВведите приоритет: ";
+                    cin.getline(search_key, sizeof(search_key));
+                    pr = search(todo, size, search_key, where_find);
+                    if (!pr)
+                    {
+                        cout << "\nДел с таким приоритетом не найдено\n";
+                    }
+                    pr = false;
+                    break;
+                case 3:
+                    system("cls");
+                    where_find = 3;
+                    cin.ignore(256, '\n');
+                    cout << "\nВведите описание: ";
+                    cin.getline(search_key, sizeof(search_key));
+                    pr = search(todo, size, search_key, where_find);
+                    if (!pr)
+                    {
+                        cout << "\nДел с таким описанием не найдено\n";
+                    }
+                    pr = false;
+                    break;
+                case 4:
+                    system("cls");
+                    int d, mo, y, h, mi;
+                    cin.ignore(256, '\n');
+                    cout << "\nВведите день, месяц, год, час, рязделяя пробелом: ";
+                    cin >> d >> mo >> y >> h >> mi;
+                    cin.getline(search_key, sizeof(search_key));
+                    pr = search_by_date(todo, size, d, mo, y, h, mi);
+                    if (!pr)
+                    {
+                        cout << "\nДел с такой датой и временем нет!\n";
+                    }
+                    pr = false;
+                    break;
+                case 5:
+                    search_menu = 5;
+                    system("cls");
+                    break;
+                }
+
+            } while (search_menu != 5);
             break;
         case 5:
             system("cls");
-        
-            show(todo, size);
+            if (strcmp(todo[0].title, "") == 0)
+            {
+                cout << "\n\t\t\t\t\tПусто!";
+            }
+            else {
+                do
+                {
+                    cout << "\nОтображение списка на: \n\n";
+                    cout << "1.День.\n";
+                    cout << "2.Неделю.\n";
+                    cout << "3.Месяц.\n";
+                    cout << "\nВведите пункт от 1 до 3: ";
+                    cin >> view_menu;
+
+                    switch (view_menu)
+                    {
+                    case 1:
+                        system("cls");
+                        sort(todo, size, sort_by_priority);
+                        show(todo, size);
+
+                        break;
+                    case 2:
+                        system("cls");
+                        sort(todo, size, sort_by_date_time);
+                        show(todo, size);
+                        break;
+                    case 3:
+                        view_menu = 3;
+                        system("cls");
+                        break;
+                    }
+
+                } while (view_menu != 3);
+
+            }
             break;
         }
     } while (menu != 10);

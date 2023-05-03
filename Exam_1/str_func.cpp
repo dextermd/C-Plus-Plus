@@ -52,4 +52,3 @@ void show_str_color(char s[])
 }
 
 
-

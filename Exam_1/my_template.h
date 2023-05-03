@@ -21,3 +21,22 @@ void str_filter(Type* s, Type* c, bool (*pf)(char symb))
 
     cout << endl;
 }
+
+
+template<class Type>
+void sort(Type* mas, int size, bool (*pf)(const Type&, const Type&))
+{
+    Type t;
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int k = 0; k < size - 1; k++)
+        {
+            if ((*pf)(mas[k], mas[k + 1]))
+            {
+                t = mas[k];
+                mas[k] = mas[k + 1];
+                mas[k + 1] = t;
+            }
+        }
+    }
+}
