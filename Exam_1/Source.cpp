@@ -132,17 +132,18 @@ int main()
                 • по приоритетy.
                 • по дате и времени исполнения.
     */
-    int index = 0, size = 1, menu = 1, id = -1;
-    Todo* todo;
-    todo = new Todo[size];
-
-
+    int index = 0, size = 1, menu = 1, delete_id = -1, update_id;
+    Todo* todo = new Todo[size]{NULL};
+ 
     do
     {
         cout << "\n\nВыберите пункт меню:\n\n";
         cout << "1. Создать дело\n";
-        cout << "2. Показать весь список дел\n";
-        cout << "3. Удаление дел\n";
+        cout << "2. Удаление дел\n";
+        cout << "3. Редактирование дел\n";
+        cout << "4. Поиск дел\n";
+        cout << "5. Отображение списка дел\n";
+
 
 
         cout << "\n\nВведите номер меню от 1 до 2: ";
@@ -156,70 +157,82 @@ int main()
                 init(todo, index);
                 index++;
                 system("cls");
+                cout << "\n\t\t\t\t\tВы успешно создали дело!";
             }
             else {
                 size += 1;
-                Todo* new_todo = new Todo[size]; 
+                Todo* new_todo = new Todo[size];
                 copy(todo, todo + size - 1 , new_todo);
                 delete[] todo; 
                 todo = new_todo;
                 init(todo, index);
                 index++;
               system("cls");
+              cout << "\n\t\t\t\t\tВы успешно создали дело!";
             }
             break;        
         case 2:
             system("cls");
             show(todo, size);
-            break;
-        case 3:
-            system("cls");
-            show(todo, size);
-            cout << "\nВыберите ID для удаления:";
-            cin >> id;
-            //if (res)
-            //{
-            //    for (int i = 0; i < index; i++)
-            //    {
-            //        res[i] = m[i];
-            //    }
+            cout << "\nВыберите ID для удаления: ";
+            cin >> delete_id;
 
-            //    for (int i = index; i < size; i++)
-            //    {
-            //        res[i + 1] = m[i];
-            //    }
-            //    res[index] = value;
-            //}
-
-            if (id -1 > 0)
+            if (delete_id -1 >= 0 && delete_id - 1 <= size -1)
             {
                 size -= 1;
                 Todo* delete_todo = new Todo[size];
-                for (int i = 0; i < id - 1  ; i++)
+                for (int i = 0; i < delete_id - 1  ; i++)
                 {
                     delete_todo[i] = todo[i];
                 }
 
-                for (int i = id + 1; i < size + 1 ; i++)
+                for (int i = delete_id; i <= size; i++)
                 {
-                    delete_todo[i - 1] = todo[i];
+                    delete_todo[i-1] = todo[i];
                 }
-                
 
-                for (int i = 0; i < size - 1; i++)
+                for (int i = 0; i < size; i++)
                 {
                     todo[i] = delete_todo[i];
                 }
 
+                delete[] delete_todo;
                 index--;
+                system("cls");
+                cout << "\n\t\t\t\t\tВы удалили успешно запись под ID - " << delete_id;
+            }
+            else {
+                system("cls");
+                cout << "\n\t\t\t\t\tОшибка такого ID нету в списке!";
             }
 
             break;
-        case 4: 
+        case 3:
+            system("cls");
+            if (todo)
+            {
+                cout << "\n\t\t\t\t\tПусто!";
+            }
+            else {
+                show(todo, size);
+                cout << "\nВыберите ID для редактирования: ";
+                cin >> update_id;
+            }
+
+            break;
+        case 4:
+            system("cls");
+            show(todo, size);
+            break;
+        case 5:
+            system("cls");
+        
+            show(todo, size);
             break;
         }
     } while (menu != 10);
 
+    delete[] todo;
 
   
 #endif
