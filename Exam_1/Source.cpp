@@ -166,13 +166,16 @@ int main()
             else {
                 size += 1;
                 Todo* new_todo = new Todo[size];
-                copy(todo, todo + size - 1 , new_todo);
-                delete[] todo; 
-                todo = new_todo;
-                init(todo, index);
-                index++;
-              system("cls");
-              cout << "\n\t\t\t\t\tВы успешно создали дело!";
+                if (new_todo)
+                {
+                    copy(todo, todo + size - 1, new_todo);
+                    delete[] todo;
+                    todo = new_todo;
+                    init(todo, index);
+                    index++;
+                    system("cls");
+                    cout << "\n\t\t\t\t\tВы успешно создали дело!";
+                }
             }
             break;        
         case 2:
@@ -190,25 +193,28 @@ int main()
                 {
                     size -= 1;
                     Todo* delete_todo = new Todo[size];
-                    for (int i = 0; i < delete_id - 1; i++)
+                    if (delete_todo)
                     {
-                        delete_todo[i] = todo[i];
-                    }
+                        for (int i = 0; i < delete_id - 1; i++)
+                        {
+                            delete_todo[i] = todo[i];
+                        }
 
-                    for (int i = delete_id; i <= size; i++)
-                    {
-                        delete_todo[i - 1] = todo[i];
-                    }
+                        for (int i = delete_id; i <= size; i++)
+                        {
+                            delete_todo[i - 1] = todo[i];
+                        }
 
-                    for (int i = 0; i < size; i++)
-                    {
-                        todo[i] = delete_todo[i];
-                    }
+                        for (int i = 0; i < size; i++)
+                        {
+                            todo[i] = delete_todo[i];
+                        }
 
-                    delete[] delete_todo;
-                    index--;
-                    system("cls");
-                    cout << "\n\t\t\t\t\tВы успешно удалили  запись под ID - " << delete_id;
+                        delete[] delete_todo;
+                        index--;
+                        system("cls");
+                        cout << "\n\t\t\t\t\tВы успешно удалили  запись под ID - " << delete_id;
+                    }
                 }
                 else {
                     system("cls");
@@ -241,81 +247,87 @@ int main()
             break;
         case 4:
             system("cls");
-            show(todo, size);
-            do
+            if (strcmp(todo[0].title, "") == 0)
             {
-                cout << "\nПоиск по: \n\n";
-                cout << "1.Названию\n";
-                cout << "2.Приоритету\n";
-                cout << "3.Описанию.\n";
-                cout << "4.Дате и времени исполнения.\n";
-                cout << "5.Выход.\n";
-                cout << "\nВведите пункт от 1 до 5: ";
-                cin >> search_menu;
-
-                switch (search_menu)
+                cout << "\n\t\t\t\t\tПусто!";
+            }
+            else {
+                show(todo, size);
+                do
                 {
-                case 1:
-                    system("cls");
-                    where_find = 1;
+                    cout << "\nПоиск по: \n\n";
+                    cout << "1.Названию\n";
+                    cout << "2.Приоритету\n";
+                    cout << "3.Описанию.\n";
+                    cout << "4.Дате и времени исполнения.\n";
+                    cout << "5.Выход.\n";
+                    cout << "\nВведите пункт от 1 до 5: ";
+                    cin >> search_menu;
 
-                    cin.ignore(256, '\n');
-                    cout << "\nВведите название: ";
-                    cin.getline(search_key, sizeof(search_key));
-                    pr = search(todo, size, search_key, where_find);
-                    if (!pr)
+                    switch (search_menu)
                     {
-                        cout << "\nДел с таким названием не найдено\n";
-                    }
-                    pr = false;
-                    break;
-                case 2:
-                    system("cls");
-                    where_find = 2;
-                    cin.ignore(256, '\n');
-                    cout << "\nВведите приоритет: ";
-                    cin.getline(search_key, sizeof(search_key));
-                    pr = search(todo, size, search_key, where_find);
-                    if (!pr)
-                    {
-                        cout << "\nДел с таким приоритетом не найдено\n";
-                    }
-                    pr = false;
-                    break;
-                case 3:
-                    system("cls");
-                    where_find = 3;
-                    cin.ignore(256, '\n');
-                    cout << "\nВведите описание: ";
-                    cin.getline(search_key, sizeof(search_key));
-                    pr = search(todo, size, search_key, where_find);
-                    if (!pr)
-                    {
-                        cout << "\nДел с таким описанием не найдено\n";
-                    }
-                    pr = false;
-                    break;
-                case 4:
-                    system("cls");
-                    int d, mo, y, h, mi;
-                    cin.ignore(256, '\n');
-                    cout << "\nВведите день, месяц, год, час, рязделяя пробелом: ";
-                    cin >> d >> mo >> y >> h >> mi;
-                    cin.getline(search_key, sizeof(search_key));
-                    pr = search_by_date(todo, size, d, mo, y, h, mi);
-                    if (!pr)
-                    {
-                        cout << "\nДел с такой датой и временем нет!\n";
-                    }
-                    pr = false;
-                    break;
-                case 5:
-                    search_menu = 5;
-                    system("cls");
-                    break;
-                }
+                    case 1:
+                        system("cls");
+                        where_find = 1;
 
-            } while (search_menu != 5);
+                        cin.ignore(256, '\n');
+                        cout << "\nВведите название: ";
+                        cin.getline(search_key, sizeof(search_key));
+                        pr = search(todo, size, search_key, where_find);
+                        if (!pr)
+                        {
+                            cout << "\nДел с таким названием не найдено\n";
+                        }
+                        pr = false;
+                        break;
+                    case 2:
+                        system("cls");
+                        where_find = 2;
+                        cin.ignore(256, '\n');
+                        cout << "\nВведите приоритет: ";
+                        cin.getline(search_key, sizeof(search_key));
+                        pr = search(todo, size, search_key, where_find);
+                        if (!pr)
+                        {
+                            cout << "\nДел с таким приоритетом не найдено\n";
+                        }
+                        pr = false;
+                        break;
+                    case 3:
+                        system("cls");
+                        where_find = 3;
+                        cin.ignore(256, '\n');
+                        cout << "\nВведите описание: ";
+                        cin.getline(search_key, sizeof(search_key));
+                        pr = search(todo, size, search_key, where_find);
+                        if (!pr)
+                        {
+                            cout << "\nДел с таким описанием не найдено\n";
+                        }
+                        pr = false;
+                        break;
+                    case 4:
+                        system("cls");
+                        int d, mo, y, h, mi;
+                        cin.ignore(256, '\n');
+                        cout << "\nВведите день, месяц, год, час, рязделяя пробелом: ";
+                        cin >> d >> mo >> y >> h >> mi;
+                        cin.getline(search_key, sizeof(search_key));
+                        pr = search_by_date(todo, size, d, mo, y, h, mi);
+                        if (!pr)
+                        {
+                            cout << "\nДел с такой датой и временем нет!\n";
+                        }
+                        pr = false;
+                        break;
+                    case 5:
+                        search_menu = 5;
+                        system("cls");
+                        break;
+                    }
+
+                } while (search_menu != 5);
+            }
             break;
         case 5:
             system("cls");
@@ -330,29 +342,46 @@ int main()
                     cout << "1.День.\n";
                     cout << "2.Неделю.\n";
                     cout << "3.Месяц.\n";
-                    cout << "\nВведите пункт от 1 до 3: ";
+                    cout << "4.Выход.\n";
+                    cout << "\nВведите пункт от 1 до 4: ";
                     cin >> view_menu;
 
                     switch (view_menu)
                     {
                     case 1:
                         system("cls");
-                        sort(todo, size, sort_by_priority);
-                        show(todo, size);
-
+                        pr = view_by_date(todo, size, 1);
+                        if (!pr)
+                        {
+                            cout << "\nДел не найдено\n";
+                        }
+                        pr = false;
                         break;
                     case 2:
                         system("cls");
-                        sort(todo, size, sort_by_date_time);
-                        show(todo, size);
+                        pr = view_by_date(todo, size, 2);
+                        if (!pr)
+                        {
+                            cout << "\nДел не найдено\n";
+                        }
+                        pr = false;
                         break;
                     case 3:
-                        view_menu = 3;
+                        system("cls");
+                        pr = view_by_date(todo, size, 3);
+                        if (!pr)
+                        {
+                            cout << "\nДел не найдено\n";
+                        }
+                        pr = false;
+                        break;
+                    case 4:
+                        view_menu = 4;
                         system("cls");
                         break;
                     }
 
-                } while (view_menu != 3);
+                } while (view_menu != 4);
 
             }
             break;
