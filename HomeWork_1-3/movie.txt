@@ -1,0 +1,54 @@
+Имя:		 Marrowbone
+Режисер:	 Sergio G. Sanchez
+Жанр:		 Horror
+Рейтинг:	 6.82
+Цена:		 275
+
+Имя:		 Gone Girl
+Режисер:	 David Fincher
+Жанр:		 Dramas
+Рейтинг:	 7.93
+Цена:		 300
+
+Имя:		 Fight Club
+Режисер:	 David Fincher
+Жанр:		 Crime
+Рейтинг:	 8.64
+Цена:		 400
+
+Имя:		 Predestination
+Режисер:	 Michael Spierig
+Жанр:		 Detective
+Рейтинг:	 7.40
+Цена:		 200
+
+Имя:		 Primal Fear
+Режисер:	 Gregory King Hoblit
+Жанр:		 Thrillers
+Рейтинг:	 7.82
+Цена:		 300
+
+Имя:		 Saw
+Режисер:	 James Wan
+Жанр:		 Horror
+Рейтинг:	 7.80
+Цена:		 230
+
+Имя:		 A Cure for Wellness
+Режисер:	 Gore Verbinski
+Жанр:		 Fantasy
+Рейтинг:	 6.40
+Цена:		 150
+
+Имя:		 Stonehearst Asylum
+Режисер:	 Brad Anderson
+Жанр:		 Thrillers
+Рейтинг:	 7.15
+Цена:		 50
+
+Имя:		 Get Out
+Режисер:	 Jordan Peele’s 
+Жанр:		 Detective
+Рейтинг:	 7.01
+Цена:		 100
+

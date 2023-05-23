@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <iomanip>
 #include <Windows.h>
+#include <string.h>
 #include <algorithm>
 #include "help_func.h"
 #include "Movie.h"
@@ -85,8 +86,7 @@ int main()
 
 #endif
 
-
-#if 1
+#if 0
     /*
         Задание 3. Написать функцию, которая записывает в текстовый файл объект структуры
             «Фильм» из домашнего задания №31 - 32. Функция принимает файловый указатель и
@@ -98,8 +98,7 @@ int main()
     */
 
     const int S = 9;
-    //FILE* file;
-    FILE* file = fopen("movie.txt", "w");
+    char str[256];
     Movie movies[S]{
         {"Marrowbone", "Sergio G. Sanchez", "Horror", 6.82, 275},
         {"Gone Girl", "David Fincher", "Dramas", 7.93, 300},
@@ -112,15 +111,90 @@ int main()
         {"Get Out", "Jordan Peele’s ", "Detective", 7.01, 100},
     };
 
-    //if (file != nullptr)
-    //{
-    save_and_read_movie(file, movies, S);
+    FILE* file = fopen("movie.txt", "w");;
 
-    //    fclose(file); 
-    //}
-    //
+    if (file)
+    {
+        save_and_read_movie(file, movies, S);
 
-    
+        fclose(file); 
+
+        file = fopen("movie.txt", "r");
+
+        while (!feof(file))
+        {
+            fgets(str, sizeof(str), file);
+            printf("%s", str);
+        }
+
+        fclose(file);
+    }
+
+
+#endif
+
+#if 0
+    /*
+        Задание 4. Написать программу, которая записывает массив объектов «Фильм» в двоичный
+            файл.Массив объявлен и инициализирован на этапе разработки.
+            Считать информацию из двоичного файла, проинициализировав данные нового массива
+            объектов «Фильм».Вывести данные нового массива на экран.
+    */
+
+    const int S = 9;
+    char str[256];
+    Movie movies_new[S];
+    Movie movies[S]{
+        {"Marrowbone", "Sergio G. Sanchez", "Horror", 6.82, 275},
+        {"Gone Girl", "David Fincher", "Dramas", 7.93, 300},
+        {"Fight Club", "David Fincher", "Crime", 8.64, 400},
+        {"Predestination", "Michael Spierig", "Detective", 7.4, 200},
+        {"Primal Fear", "Gregory King Hoblit", "Thrillers", 7.82, 300},
+        {"Saw", "James Wan", "Horror", 7.80, 230},
+        {"A Cure for Wellness", "Gore Verbinski", "Fantasy", 6.40, 150},
+        {"Stonehearst Asylum", "Brad Anderson", "Thrillers", 7.15, 50},
+        {"Get Out", "Jordan Peele’s ", "Detective", 7.01, 100},
+    };
+
+    FILE* file;
+    errno_t err;
+    err = fopen_s(&file, "movie_byte.txt", "wb");
+
+    // Запись
+
+    if (!err)
+    {
+        for (int i = 0; i < S; i++)
+        {
+            fwrite(movies + i, sizeof(movies), 1, file);
+        }
+
+        printf("\nOk\n");
+        fclose(file);
+    }
+    else {
+        printf("\nОшибка записи в файл");
+    }
+
+    // Запись в новую структуру из файла
+
+    err = fopen_s(&file, "movie_byte.txt", "rb");
+    if (!err)
+    {
+        for (int i = 0; i < S; i++)
+        {
+            fread(movies_new +i, sizeof(movies_new), 1, file);
+        }
+       
+        fclose(file);
+
+        show(movies_new, S);
+    }
+    else {
+        printf("\nОшибка чтении файла");
+    }
+
+
 
 #endif
 

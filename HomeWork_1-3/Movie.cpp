@@ -1,34 +1,36 @@
-#include "Movie.h"
-#include "help_func.h"
 #include <iostream>
 #include <stdlib.h>
 #include <conio.h>
 #include <iomanip>
 #include <Windows.h>
-
+#include <string.h>
+#include <algorithm>
+#include "Movie.h"
+#include "help_func.h"
 
 using namespace std;
 
+
 void save_and_read_movie(FILE* file, Movie* movies, const int size)
 {
-    //errno_t err;
-    //err = fopen_s(&file, "movies.txt", "w");
+   
+    if (file)
+    {
 
-    //if (file != nullptr)
-    //{
-        fprintf(file, "Фамилия: %s ", movies[0].name);
-
-
-        //for (int i = 0; i < size; i++)
-        //{
-        //    //fprintf(file, " %d", student.marks[i]);
-        //}
-
-        printf("\nOk");
-    //}
-    //else {
-    //    printf("\nОшибка записи в файл");
-    //}
+        for (int i = 0; i < size; i++)
+        {
+            fprintf(file, "Имя:\t\t %s\nРежисер:\t %s\nЖанр:\t\t %s\nРейтинг:\t %.2lf\nЦена:\t\t %d\n\n",
+                movies[i].name,
+                movies[i].director,
+                movies[i].genre,
+                movies[i].rating,
+                movies[i].price
+            );
+        }
+    }
+    else {
+        printf("\nОшибка записи в файл");
+    }
 }
 
 void show(const Movie& mv)
