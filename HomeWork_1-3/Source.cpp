@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include <algorithm>
 #include "help_func.h"
+#include "Movie.h"
 
 
 
@@ -72,7 +73,7 @@ int main()
 
 #endif
 
-#if 1
+#if 0
     /*
         Задание 2. 
         Дан текстовый файл(из задания 1).
@@ -81,6 +82,45 @@ int main()
 
     char filename[10] = "data.txt";
     file_get_max_row(filename);
+
+#endif
+
+
+#if 1
+    /*
+        Задание 3. Написать функцию, которая записывает в текстовый файл объект структуры
+            «Фильм» из домашнего задания №31 - 32. Функция принимает файловый указатель и
+            экземпляр структуры.Информацию оформить в удобном для пользователя формате, т.е.с
+            указанием наименования полей : Название фильма, Режиссер и т.д.
+            В отдельный файл записать массив объектов «Фильм» в текстовый файл.Массив объявлен и
+            инициализирован на этапе разработки.
+            Прочитать информацию из файла построчно и вывести данные на экран.
+    */
+
+    const int S = 9;
+    //FILE* file;
+    FILE* file = fopen("movie.txt", "w");
+    Movie movies[S]{
+        {"Marrowbone", "Sergio G. Sanchez", "Horror", 6.82, 275},
+        {"Gone Girl", "David Fincher", "Dramas", 7.93, 300},
+        {"Fight Club", "David Fincher", "Crime", 8.64, 400},
+        {"Predestination", "Michael Spierig", "Detective", 7.4, 200},
+        {"Primal Fear", "Gregory King Hoblit", "Thrillers", 7.82, 300},
+        {"Saw", "James Wan", "Horror", 7.80, 230},
+        {"A Cure for Wellness", "Gore Verbinski", "Fantasy", 6.40, 150},
+        {"Stonehearst Asylum", "Brad Anderson", "Thrillers", 7.15, 50},
+        {"Get Out", "Jordan Peele’s ", "Detective", 7.01, 100},
+    };
+
+    //if (file != nullptr)
+    //{
+    save_and_read_movie(file, movies, S);
+
+    //    fclose(file); 
+    //}
+    //
+
+    
 
 #endif
 
